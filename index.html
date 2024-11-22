@@ -102,23 +102,34 @@
         }
         .gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+            gap: 15px; /* Espacio entre imágenes */
             margin-top: 20px;
         }
-        .gallery img {
+        .gallery img, .gallery iframe {
             width: 100%;
             height: auto;
             border-radius: 5px;
+            object-fit: cover; /* Hace que las imágenes llenen el cuadro */
+            aspect-ratio: 1 / 1; /* Mantiene imágenes cuadradas */
+        }
+        .empty-tab {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px; /* Altura fija para la pestaña vacía */
+            background-color: #000; /* Fondo negro */
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="profile">
         <div class="header">
-            <!-- Imagen de perfil -->
             <img src="IMAGEN1.jpg" alt="Foto de perfil" class="profile-pic">
-
             <div class="profile-info">
                 <h1>ElrincondeLuis <span>✔</span></h1>
                 <div class="actions">
@@ -126,8 +137,8 @@
                     <button>Enviar mensaje</button>
                 </div>
                 <div class="stats">
-                    <span><strong>120</strong> publicaciones</span>
-                    <span><strong>1.2M</strong> seguidores</span>
+                    <span><strong>11</strong> publicaciones</span>
+                    <span><strong>100K</strong> seguidores</span>
                     <span><strong>3</strong> seguidos</span>
                 </div>
                 <p class="bio">
@@ -138,57 +149,57 @@
         </div>
         <div class="tabs">
             <div class="active" onclick="showTab('photos')">
-                <img src="https://via.placeholder.com/18" alt="Publicaciones icon">
-                PUBLICACIONES
+                📷 PUBLICACIONES
             </div>
             <div onclick="showTab('reels')">
-                <img src="https://via.placeholder.com/18" alt="Reels icon">
-                REELS
+                🎥 REELS
             </div>
             <div onclick="showTab('tags')">
-                <img src="https://via.placeholder.com/18" alt="Etiquetas icon">
-                ETIQUETAS
+                🏷️ ETIQUETAS
             </div>
         </div>
         <div class="gallery" id="photos">
             <img src="P1.png" alt="Post 1">
-            <img src="https://github.com/Luis2221165/ElrincondeLuis/blob/main/P2.jpg" alt="Post 2">
+            <img src="P2.jpg" alt="Post 2">
             <img src="P3.png" alt="Post 3">
             <img src="P4.jpg" alt="Post 4">
-            <img src="https://via.placeholder.com/300" alt="Post 5">
-            <img src="https://via.placeholder.com/300" alt="Post 6">
+            <img src="P5.jpg" alt="Post 5">
+            <img src="P6.jpg" alt="Post 6">
+            <img src="P7.jpg" alt="Post 7">
+            <img src="P8.png" alt="Post 8">
+            <img src="P9.jpg" alt="Post 9">
+            <img src="P10.jpg" alt="Post 10">
+            <img src="P11.jpg" alt="Post 11">
+
         </div>
         <div class="gallery" id="reels" style="display: none;">
-            <!-- Video de YouTube embebido en el reel -->
-            <iframe id="youtube-video" width="300" height="169" src="https://www.youtube.com/embed/Fr9rMmMp3mY?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe width="300" height="169"
+                    src="https://www.youtube.com/embed/g5D3JITPS6E?autoplay=1&mute=1"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe width="300" height="169"
+                    src="https://www.youtube.com/embed/XUDRe7odFPI?autoplay=1&mute=1"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe width="300" height="169"
+                    src="https://www.youtube.com/embed/AS5rjmQp4QA?autoplay=1&mute=1"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-        <div class="gallery" id="tags" style="display: none;">
-            <img src="https://via.placeholder.com/300" alt="Etiqueta 1">
-            <img src="https://via.placeholder.com/300" alt="Etiqueta 2">
+        <div id="tags" style="display: none;">
+            <div class="empty-tab">No hay etiquetas disponibles.</div>
         </div>
     </div>
 
     <script>
         function showTab(tabId) {
-            const tabs = document.querySelectorAll('.gallery');
+            const tabs = document.querySelectorAll('.gallery, #tags');
             tabs.forEach(tab => tab.style.display = 'none');
 
             const buttons = document.querySelectorAll('.tabs div');
             buttons.forEach(button => button.classList.remove('active'));
 
-            // Mostrar la sección correspondiente
-            document.getElementById(tabId).style.display = 'grid';
+            document.getElementById(tabId).style.display = tabId === 'tags' ? 'block' : 'grid';
             document.querySelector(`.tabs div[onclick="showTab('${tabId}')"]`).classList.add('active');
-
-            // Controlar el video de YouTube cuando se muestra la pestaña "reels"
-            if (tabId === 'reels') {
-                const video = document.getElementById('youtube-video');
-                video.src = "https://www.youtube.com/embed/Fr9rMmMp3mY?autoplay=1"; // Reproduce el video al mostrar la sección
-            } else {
-                const video = document.getElementById('youtube-video');
-                video.src = ""; // Detiene el video cuando se oculta la sección
-            }
         }
     </script>
 </body>
 </html>
+
